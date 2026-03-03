@@ -26,12 +26,13 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    def get_queryset(self):
-        return Comment.objects.filter(post=self.kwargs['post_id'])
     serializer_class = CommentSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,
                           AuthorOrReadOnly,)
     lookup_url_kwarg = 'id'
+
+    def get_queryset(self):
+        return Comment.objects.filter(post=self.kwargs['post_id'])
 
     def perform_create(self, serializer):
         serializer.save(

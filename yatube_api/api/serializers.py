@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 
-
 from posts.models import Comment, Post, Group, Follow
 
 User = get_user_model()
@@ -56,7 +55,7 @@ class PostSerializer(serializers.ModelSerializer):
         read_only_fields = ('id', 'author', 'pub_date')
 
     def validate(self, attrs):
-        if 'text' in attrs and attrs['text'].strip() == '':
+        if not 'text':
             raise serializers.ValidationError('Вы не ввели текст')
         return attrs
 
