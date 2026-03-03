@@ -1,11 +1,24 @@
 ### Yatube API:
 
-Описание
+### Описание:
 
 Yatube API - REST сервис для платформы для блогов. Yatube API предполагает возможность создать, отредактировать или удалить собственный пост, прокомментировать пост другого автора и подписаться на него.
 
 API построен на Django и Django REST Framework.
 Авторизация реализована через JSON Web Token (JWT).
+
+### Стек технологий:
+
+* Python
+* Django
+* Django REST Framework (DRF)
+* Djoser
+* SimpleJWT
+
+### Автор:
+
+Shmykova Anna
+
 
 ### Как запустить проект:
 
