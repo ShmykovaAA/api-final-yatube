@@ -29,6 +29,7 @@ class CommentViewSet(viewsets.ModelViewSet):
         return Comment.objects.filter(post=self.kwargs['post_id'])
     serializer_class = CommentSerializer
     permission_classes = (AuthorOrReadOnly,)
+    lookup_url_kwarg = 'id'
 
     def perform_create(self, serializer):
         serializer.save(
@@ -36,17 +37,13 @@ class CommentViewSet(viewsets.ModelViewSet):
             post=get_object_or_404(Post, id=self.kwargs['post_id']),
         )
 
-    def perform_update(self, serializer):
-        if serializer.instance.author != self.request.user:
-            raise PermissionDenied('Изменение чужого контента запрещено!')
-        super(CommentViewSet, self).perform_update(serializer)
-
-    def destroy(self, request, *args, **kwargs):
-        if self.get_object().author != request.user:
-            raise PermissionDenied('Удаление чужого контента запрещено!')
-        return super().destroy(request, *args, **kwargs)
 
 class FollowViewSet(viewsets.ModelViewSet):
-    queryset = Follow.objects.all()
     serializer_class = FollowSerializer
-    permission_classes = (permissions.IsAuthenticated)
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        return Follow.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

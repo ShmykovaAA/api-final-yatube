@@ -50,6 +50,9 @@ class Comment(models.Model):
     text = models.TextField()
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
+    group = models.ForeignKey(Group, null=True, blank=True,
+                              on_delete=models.CASCADE,
+                              related_name='group', verbose_name='группа')
 
     class Meta:
         verbose_name = 'Комментарий'
