@@ -5,6 +5,7 @@ MAX_LENGHT = 200
 
 User = get_user_model()
 
+
 class Group(models.Model):
     title = models.CharField('Название группы', max_length=MAX_LENGHT)
     slug = models.SlugField('Слаг', unique=True)
@@ -16,6 +17,7 @@ class Group(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class Post(models.Model):
     text = models.TextField('Текст поста')

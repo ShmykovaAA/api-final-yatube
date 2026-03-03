@@ -1,6 +1,5 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, permissions
-from rest_framework.exceptions import PermissionDenied
 from rest_framework.pagination import LimitOffsetPagination
 
 from posts.models import Post, Group, Comment, Follow
@@ -8,6 +7,7 @@ from .serializers import (
     PostSerializer, GroupSerializer, CommentSerializer, FollowSerializer
 )
 from .permissions import AuthorOrReadOnly
+
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
